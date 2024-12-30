@@ -26,7 +26,8 @@ impl AppState {
     }
 }
 
-#[tokio::main]
+// Multi-threaded runtime API using 2 worker threads to handle requests
+#[tokio::main(flavor = "multi_thread", worker_threads = 2)]
 async fn main() {
     dotenv().ok();
 
