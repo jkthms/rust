@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest # You can specify a version, e.g., postgres:14
+    container_name: postgres_container
+    environment:
+      - POSTGRES_USER=youruser       # Set a custom user
+      - POSTGRES_PASSWORD=yourpassword  # Set the password for the user
+      - POSTGRES_DB=local-postgres    # Set a custom database name
+    ports:
+      - "5432:5432"  # Maps local port 5432 to container's port 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persists data between restarts
+    networks:
+      - postgres_network
+    restart: always  # Optionally restart container if it crashes
+
+volumes:
+  postgres_data:  # This volume will store PostgreSQL data persistently
+
+networks:
+  postgres_network:
+    driver: bridge
